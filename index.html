@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bucak Engelliler Derneği</title>
+    <style>
+        /* Genel Stil */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: #004d99;
+            color: red;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+    .logo-img {
+    width: 45px;
+    height: 45px; /* Görselin yüksekliğini aynı genişlikle yaparak yuvarlak hale getiriyoruz */
+    border-radius: 50%; /* Görseli yuvarlak yapar */
+    object-fit: cover; /* Görselin orantısız büyümesini engeller, en iyi şekilde sığdırır */
+    margin-right: 10px; /* Sağ tarafta boşluk bırakır */
+}
+
+        .logo h1 {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ffcc00;
+            text-transform: uppercase;
+        }
+
+        /* Sekme Menüsü */
+        .tab-menu {
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: -10px;
+        }
+
+.tab-menu button {
+    background-color: #ffffff;
+    color: #004d99;
+    padding: 5px 10px; /* Daha dengeli padding */
+    font-size: 0.8rem; /* Harflerin iç içe geçmesini önlemek için boyutu artırdık */
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    margin: 5px;
+    width: auto; /* Sabit genişlik yerine içeriğe göre boyutlanır */
+    max-width: 150px; /* Maksimum genişlik belirledik */
+    white-space: nowrap; /* Yazının satır atlamasını engeller */
+    overflow: hidden; /* Taşmayı gizler */
+    text-overflow: ellipsis; /* Yazının sonuna "..." ekler */
+    letter-spacing: 0.05em; /* Harf aralığını artırdık */
+}
+
+        .tab-menu button:hover {
+            background-color: #ffcc00;
+            color: #fff;
+        }
+
+        .tab-menu button.active {
+            background-color: #ffcc00;
+            color: #fff;
+        }
+
+        /* Sekme İçeriği */
+        .tab-content {
+            display: none;
+            padding: 15px 20px;
+            text-align: center;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Hero Bölümü */
+        .hero {
+            background: linear-gradient(135deg, #0066cc, #004d99);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 10 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h2 {
+            font-size: 20px;
+            margin-bottom: 100px;
+        }
+
+        .hero p {
+            font-size: 6rem;
+            margin-bottom: 110px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 10px;
+            text-align: 16px;
+            position: 50px; 
+            font-size: 10rem;
+            z-index: 25;
+            margin bottom: 15px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 508px) {
+            .hero h2 {
+                font-size: 10px;
+            }
+            .hero p {
+                font-size: 10px;
+            }
+            .tab-menu button {
+                font-size: 1rem;
+                padding: 5px 1px;
+            }
+        }
+
+        .image-slider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+            overflow: hidden;
+            height: 250px;
+        }
+
+        .image-slider {
+    width: auto; /* Görsel boyutuna göre otomatik genişlik */
+    max-width: 100%; /* Ekrana sığmasını sağlar */
+    height: 250px;
+}
+
+        /* Kaydırıcı Kapsayıcı */
+        .image-slider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Resimler */
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .image-slider img {
+    width: 100%;
+    max-width: 560px; /* YouTube'un varsayılan genişliği */
+    height: auto; /* Oranı korumak için yükseklik otomatik */
+    aspect-ratio: 16 / 9; /* Modern tarayıcılar için */
+    object-fit: cover; /* Görselin taşmasını önler */
+}
+
+        /* Kaydırıcı Butonları */
+        .image-slider button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .image-slider .prev {
+            left: 10px;
+        }
+
+        .image-slider .next {
+            right: 10px;
+        }
+    /* İletişim Bilgileri */
+.contact-info {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+.contact-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #004d99;
+    font-weight: bold;
+}
+
+.contact-info p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.contact-info p strong {
+    color: #004d99;
+}
+
+.contact-info a {
+    color: #004d99;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #ffcc00;
+}
+    img {
+    width: 100%;
+    height: auto;
+    max-width: 300px; /* İsteğe bağlı, görsellerin en fazla bu genişlikte olmasını sağlar */
+}
+    /* Kaydırıcı Kapsayıcı */
+.image-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 5px;
+    position: relative;
+}
+
+/* Kaydırıcı Konteyner */
+.slider-container {
+    display: flex;
+    transition: transform 0.6s ease-in-out; /* Yumuşak geçiş için */
+}
+
+.image-slider {
+    width: auto; /* Görsel boyutuna göre otomatik genişlik */
+    max-width: 100%; /* Ekrana sığmasını sağlar */
+    height: auto;
+}
+
+/* Kaydırıcı Butonları */
+.image-slider button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.image-slider .prev {
+    left: 10px;
+}
+
+.image-slider .next {
+    right: 10px;
+}
+    /* Kayan Yazı Alanı */
+.caption-container {
+    position: relative;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.caption-container span {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scrollText 8s linear infinite;
+    padding-left: 100%;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+       }
+}
+    .advertisement {
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 5px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+}
+.advertisement a {
+    color: #004d99;
+    font-weight: bold;
+    text-decoration: none;
+}
+.advertisement a:hover {
+    color: #ffcc00;
+}
+        
+h2 {
+    font-size: 1.8rem; /* Başlık boyutu */
+    color: #004d99; /* Yazı rengi */
+    text-align: center; /* Ortalama */
+    background-color: #ffcc00; /* Arka plan rengi */
+    padding: 10px; /* İç boşluk */
+    border-radius: 10px; /* Köşeleri yuvarlama */
+    margin-bottom: 15px; /* Alt boşluk */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    text-transform: uppercase; /* Büyük harf */
+    font-weight: bold; /* Kalın yazı */
+}
+.reklam-container {
+    margin: 8px auto; /* Ortala, daha küçük dış boşluk */
+    padding: 16px; /* İç boşluk artırıldı */
+    text-align: center; /* Yazıları ortala */
+    background-color: #ffeb3b; /* Sarı ton */
+    border: 1px solid #e0e0e0; /* İnce gri çerçeve */
+    border-radius: 8px; /* Yuvarlak köşeler */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge */
+    margin-top: 30px; /* Üst boşluk */
+    width: 340px; /* Sabit genişlik */
+    height: 250px; /* Sabit yükseklik ile kare form */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Yumuşak animasyon */
+}
+
+.reklam-container:hover {
+    transform: translateY(-3px); /* Hoverda çok hafif yukarı kayma */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12); /* Hoverda hafif gölge büyümesi */
+}
+
+.reklam-container h2 {
+    font-family: 'Arial', sans-serif; /* Modern font */
+    font-size: 1.2rem; /* Başlık boyutu */
+    color: #333; /* Başlık rengi */
+    margin-bottom: 2px; /* Başlık ve içerik arasına boşluk */
+}
+
+.reklam-container p {
+    font-family: 'Roboto', sans-serif; /* Okunabilir font */
+    font-size: 0.9rem; /* Yazı boyutu */
+    color: #555; /* Metin rengi */
+    line-height: 1.4; /* Satır aralığı */
+}
+.reklam-container .advertisement {
+    margin-bottom: 5px; /* Alt boşluk */
+}
+.reklam-alani h3 {
+        cursor: pointer;
+        background-color: #ffff;
+        color: #333;
+        padding: 5px;
+        border-radius: 5px;
+        margin: 0;
+    }
+
+    .reklam-alani h3:hover {
+        background-color: #ffff;
+    }
+
+    #reklam-icerik {
+        background-color: rgba(0, 0, 0, 0.05);
+        padding: 5px;
+        border-top: 1px solid #ddd;
+        transition: max-height 0.5s ease;
+    }
+    .reklam-alani {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #ffff;
+}
+
+.reklam-alani h3 {
+    margin: 0;
+    cursor: pointer;
+    color: #000000;
+    text-decoration: underline;
+}
+
+.reklam-alani .telefon {
+    font-weight: bold;
+    color: #555;
+}
+    /* Kaydırıcı İçerik */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Yükseklik ihtiyaca göre ayarlanabilir */
+    overflow: hidden;
+}
+
+/* Resimler için kayma animasyonu */
+.slider-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out; /* Kayma animasyonu */
+}
+
+/* İlk slayt başlangıçta görünür */
+.slider-container img:first-child {
+    display: block;
+}
+    
+    </style>
+</head>
+<body>
+    <!-- Başlık ve Navbar -->
+    <header>
+        <div class="logo">
+            <!-- Logo Görseli Ekleme -->
+            <img src="Logo.jpg" alt="Logo" class="logo-img">
+            <h1>Bucak Engelliler Derneği</h1>
+        </div>
+    </header>
+
+    <!-- Sekme Menüsü -->
+    <div class="tab-menu">
+        <button class="tab-link active" onclick="openTab(event, 'home')">Ana Sayfa</button>
+        <button class="tab-link" onclick="openTab(event, 'about')">Hakkımızda</button>
+        <button class="tab-link" onclick="openTab(event, 'contact')">İletişim</button>
+        <button class="tab-link" onclick="openTab(event, 'advertisement')">Reklamlar</button>
+        <button class="tab-link" onclick="openTab(event, 'news')">Haberler</button>
+    </div>
+ 
+    <!-- Sekme İçerikleri -->
+<div id="advertisement" class="tab-content">
+    <!-- Reklam Alanı -->
+<div class="reklam-alani">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTLDzlSQJ6s4D8rwZb1Xo6IlLW0AseuH6tF95x7Rdp8-3R82GAIoTWuAyA&s=10"
+    <h3 onclick="toggleContent()">Ev Yapımı Mantı </h3>
+    <div id="reklam-icerik" style="display: none;">
+        <p>Taptaze, özenle hazırlanmış ev yapımı mantı için bizimle iletişime geçin. Her lokmada geleneksel lezzeti hissedin!</p>
+        <p><span class="telefon">0533 549 1410</span> - Duran Yılmaz</p>
+        <p><span class="telefon">0553 573 0012</span> - Fatma Yılmaz</p>
+    </div>
+</div>
+</div>
+
+    <div id="home" class="tab-content active">
+    <!-- Ana Sayfa İçeriği -->
+    <div class="image-slider" id="slider1">
+        <button class="prev" onclick="moveSlide(-1, 'slider1')">&#60;&#60;</button>
+        <div class="slider-container">
+            <img src="14.jpg" alt="Görsel 3">
+            <img src="18.jpg" alt="Görsel 6">
+            <img src="19.jpg" alt="Görsel 7">
+            <img src="20.jpg" alt="Görsel 8">
+            <img src="23.jpg" alt="Görsel 9">
+            <img src="38.jpg" alt="Görsel 11">
+            <img src="40.jpg" alt="Görsel 12">
+            <img src="43.jpg" alt="Görsel 13">
+        </div>
+        <button class="next" onclick="moveSlide(1, 'slider1')">&#62;&#62;</button>
+    </div>
+    <marquee>Hamuriși satıșı yapmaktayız.</marquee>
+
+    <!-- El İşleri Kaydırıcı -->
+    <div class="image-slider" id="slider2">
+        <button class="prev" onclick="moveSlide(-1, 'slider2')">&#60;&#60;</button>
+        <div class="slider-container">
+            <img src="0.jpg" alt="El İşi 1">
+            <img src="5.jpg" alt="El İşi 2">
+            <img src="6.jpg" alt="El İşi 3">
+            <img src="9.jpg" alt="El İşi 4">
+            <img src="10.jpg" alt="El İşi 5">
+            <img src="11.jpg" alt="El İşi 6">
+            <img src="16.jpg" alt="El İşi 7">
+            <img src="41.jpg" alt="El İşi 8">
+            <img src="47.jpg" alt="El İşi 9">
+            <img src="48.jpg" alt="El İşi 10">
+            <img src="49.jpg" alt="El İşi 11">
+            <img src="50.jpg" alt="El İşi 12">
+            <img src="51.jpg" alt="El İşi 13">
+            <img src="52.jpg" alt="El İşi 14">
+            <img src="53.jpg" alt="El İşi 15">
+            <img src="57.jpg" alt="El İşi 16">
+        </div>
+        <button class="next" onclick="moveSlide(1, 'slider2')">&#62;&#62;</button>
+    </div>
+    <marquee>Bireylerin kaliteli vakit geçirmesi ve maddi kazanç sağlamalarında destek oluyoruz.</marquee>
+
+    <!-- Dernek Etkinlik Kaydırıcı -->
+    <div class="image-slider" id="slider3">
+        <button class="prev" onclick="moveSlide(-1, 'slider3')">&#60;&#60;</button>
+        <div class="slider-container">
+            <img src="65.jpg" alt="Etkinlik 1">
+            <img src="66.jpg" alt="Etkinlik 2">
+            <img src="67.jpg" alt="Etkinlik 3">
+            <img src="68.jpg" alt="Etkinlik 4">
+            <!-- Add more images as needed -->
+        </div>
+        <button class="next" onclick="moveSlide(1, 'slider3')">&#62;&#62;</button>
+    </div>
+    <marquee>Engelliler haftası için sayın MAKÜ eğitimci ve öğrencileriyle birlikte gerçekleștirdiğimiz etkinlikten kareler.</marquee>
+
+</div>
+        
+</body>
+    </div>
+
+   <div id="about" class="tab-content">
+    <section class="hero">
+        <h2>Engelli Bireylerin Yanındayız</h2>
+        <p>Bucak Engelliler Derneği olarak, engelli bireylerin toplumsal hayata tam katılımını desteklemeyi ve yaşam kalitelerini artırmayı hedefliyoruz. Derneğimiz, engelli bireylerin eğitim, sağlık, rehabilitasyon ve sosyal entegrasyon süreçlerinde onlara yönelik çeşitli projeler ve etkinlikler düzenlemektedir. Toplumda farkındalık yaratmak, engelli bireylerin haklarını savunmak ve yaşamlarını daha iyi hale getirmek amacıyla çalışmalar yapıyoruz.</p>
+
+        <!-- Dernek Resimleri -->
+        <div class="image-gallery">
+            <img src="1.jpg" alt="Dernek Etkinliği 1">
+            <img src="2.jpg" alt="Dernek Etkinliği 2">
+            <img src="3.jpg" alt="Dernek Etkinliği 3">
+            <img src="7.jpg" alt="Dernek Etkinliği 4">
+            <img src="8.jpg" alt="Dernek Etkinliği 5">
+            <img src="21.jpg" alt="Dernek Etkinliği 6">
+            <img src="22.jpg" alt="Dernek Etkinliği 7">
+            <img src="26.jpg" alt="Dernek Etkinliği 8">
+            <img src="32.jpg" alt="Dernek Etkinliği 9">
+            <img src="33.jpg" alt="Dernek Etkinliği 10">
+            <img src="36.jpg" alt="Dernek Etkinliği 11">
+            <img src="44.jpg" alt="Dernek Etkinliği 12">
+            <img src="45.jpg" alt="Dernek Etkinliği 13">
+            <img src="46.jpg" alt="Dernek Etkinliği 14">
+            <img src="54.jpg" alt="Dernek Etkinliği 15">
+            <img src="55.jpg" alt="Dernek Etkinliği 16">
+            <img src="56.jpg" alt="Dernek Etkinliği 17">
+            <img src="60.jpg" alt="Dernek Etkinliği 18">
+             <img src="69.jpg" alt="Dernek Etkinliği 18">
+             <img src="70.jpg" alt="Dernek Etkinliği 18">
+             <img src="71.jpg" alt="Dernek Etkinliği 18">
+             <img src="72.jpg" alt="Dernek Etkinliği 18">
+            <img src="74.jpg" alt="Dernek Etkinliği 18">
+             <img src="75.jpg" alt="Dernek Etkinliği 18">
+             <img src="76.jpg" alt="Dernek Etkinliği 18">
+             <img src="77.jpg" alt="Dernek Etkinliği 18">
+            <img src="78.jpg" alt="Dernek Etkinliği 18">
+             <img src="79.jpg" alt="Dernek Etkinliği 18">
+             <img src="80.jpg" alt="Dernek Etkinliği 18">
+        </div>
+    </section>
+   </div>
+
+    <div id="contact" class="tab-content">
+        <section>
+            <!-- Google Maps Entegrasyonu -->
+            <div class="map-container">
+                <h3>Adresimiz : </h3>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.83543450964402!2d144.95565121550402!3d-37.81732797975162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f0b1d671%3A0x5045675218ce7e33!2sBucak%2C%20Burdur!5e0!3m2!1str!2str!4v1634762425826!5m2!1str!2str" 
+                    width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+
+            <!-- İletişim Bilgileri -->
+            <div class="contact-info">
+                <p><strong>Başkan:</strong> Mehmet Öztop - 0536 990 81 70</p>
+                <p><strong>Başkan Yardımcısı:</strong> Halil Demirel - 0542 787 58 39</p>
+                <p><strong>Site Kurucusu:</strong> Muhammed Can Yüce - 0551 044 61 46</p>
+                <p><strong>E-posta:</strong>bucakengellidernek@gmail.com</p>
+            </div>
+        </section>
+    </div>
+
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Bucak Engelliler Derneği - Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        // Sekme açma fonksiyonu
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Resim kaydırıcı fonksiyonları
+        var slideIndex = 0;
+
+        function moveSlide(n) {
+            slideIndex += n;
+            var slides = document.querySelectorAll('.image-slider img');
+            if (slideIndex >= slides.length) {
+                slideIndex = 0;
+            } else if (slideIndex < 0) {
+                slideIndex = slides.length - 1;
+            }
+            document.querySelector('.slider-container').style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+        }
+var slideIndex = 0;
+
+var slideIndex1 = 0;
+var slideIndex2 = 0;
+
+function moveSlide(n, sliderId) {
+    var slides;
+    if (sliderId === 'slider1') {
+        slides = document.querySelectorAll('#' + sliderId + ' .slider-container img');
+        slideIndex1 += n;
+        if (slideIndex1 >= slides.length) {
+            slideIndex1 = 0;
+        } else if (slideIndex1 < 0) {
+            slideIndex1 = slides.length - 1;
+        }
+        document.querySelector('#' + sliderId + ' .slider-container').style.transform = 'translateX(' + (-slideIndex1 * 100) + '%)';
+    } else if (sliderId === 'slider2') {
+        slides = document.querySelectorAll('#' + sliderId + ' .slider-container img');
+        slideIndex2 += n;
+        if (slideIndex2 >= slides.length) {
+            slideIndex2 = 0;
+        } else if (slideIndex2 < 0) {
+            slideIndex2 = slides.length - 1;
+        }
+        document.querySelector('#' + sliderId + ' .slider-container').style.transform = 'translateX(' + (-slideIndex2 * 100) + '%)';
+    }
+}
+function toggleContent() {
+        var content = document.getElementById("reklam-icerik");
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+    </script>
+<script>
+    function toggleContent() {
+        const content = document.getElementById("reklam-icerik");
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+function toggleContent() {
+    var content = document.getElementById('reklam-icerik');
+    content.style.display = content.style.display === 'none' ? 'block' : 'none';
+}
+
+</script>
+<script>
+    let currentSlide = 0;
+
+    // Slide'ları hareket ettiren fonksiyon
+    function moveSlide(direction, sliderId) {
+        const slider = document.getElementById(sliderId);
+        const slides = slider.querySelectorAll('.slider-container img');
+        const totalSlides = slides.length;
+
+        // Mevcut slide'ı güncelle
+        currentSlide += direction;
+
+        // Eğer son slayta geldiysek, başa dön
+        if (currentSlide >= totalSlides) {
+            currentSlide = 0;
+        }
+
+        // Eğer ilk slayta geldiysek, son slayta git
+        if (currentSlide < 0) {
+            currentSlide = totalSlides - 1;
+        }
+
+        // Tüm slaytları gizle
+        for (let i = 0; i < totalSlides; i++) {
+            slides[i].style.display = "none";
+        }
+
+        // Geçerli slaytı göster
+        slides[currentSlide].style.display = "block";
+    }
+
+    // Sayfa yüklendiğinde ilk slaytı göster
+    window.onload = function() {
+        const sliders = document.querySelectorAll('.image-slider');
+        sliders.forEach(slider => {
+            const slides = slider.querySelectorAll('.slider-container img');
+            if (slides.length > 0) {
+                slides[0].style.display = "block"; // İlk slaytı göster
+            }
+        });
+    };
+</script>
+<script>
+    let currentSlide = 0;
+
+    function moveSlide(direction, sliderId) {
+    const slider = document.getElementById(sliderId);
+    const sliderContainer = slider.querySelector('.slider-container');
+    const slides = slider.querySelectorAll('img');
+    const slideWidth = slides[0].clientWidth; // Bir slaytın genişliği
+    let currentTransform = sliderContainer.style.transform.match(/-?\d+/g) || [0];
+    currentTransform = parseInt(currentTransform[0]);
+
+    // Yeni pozisyon hesaplama
+    let newTransform = currentTransform + direction * slideWidth;
+
+    // Eğer sona gelindiyse başa dön
+    if (newTransform > 0) {
+        newTransform = -(slideWidth * (slides.length - 1));
+    } else if (newTransform < -(slideWidth * (slides.length - 1))) {
+        newTransform = 0;
+    }
+
+    // Yeni pozisyonu uygula
+    sliderContainer.style.transform = `translateX(${newTransform}px)`;
+}
+</script>
+</body>
+</html>
