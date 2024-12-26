@@ -454,8 +454,94 @@ h2 {
 .slider-container img:first-child {
     display: block;
 }
-    
-    
+    /* Görsel boyutlandırma */
+img {
+    width: auto; /* Görsel boyutuna göre otomatik genişlik */
+    max-width: 100%; /* Ekrana sığmasını sağlar */
+    height: auto;
+}
+
+/* Kaydırıcı Kapsayıcı */
+.image-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    overflow: hidden;
+    margin: 5px;
+    position: relative;
+}
+
+/* Kaydırıcı Konteyner */
+.slider-container {
+    display: flex;
+    transition: transform 0.6s ease-in-out; /* Yumuşak geçiş için */
+}
+
+.image-slider {
+    width: auto; /* Görsel boyutuna göre otomatik genişlik */
+    max-width: 100%; /* Ekrana sığmasını sağlar */
+    height: auto;
+}
+
+/* Kaydırıcı Butonları */
+.image-slider button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Önceki buton */
+.image-slider .prev {
+    left: 10px;
+}
+
+/* Sonraki buton */
+.image-slider .next {
+    right: 10px;
+}
+
+/* Kayan Yazı Alanı */
+.caption-container {
+    position: absolute;
+    bottom: 10px; /* Kayan yazı alanını alt kısmına yerleştirir */
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+}
+
+/* Kayan metin animasyonu */
+.caption-container span {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scrollText 8s linear infinite;
+    padding-left: 100%;
+}
+
+/* Kayan metin animasyonu için keyframes */
+@keyframes scrollText {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
     </style>
 </head>
 <body>
@@ -549,9 +635,28 @@ h2 {
     <marquee>Engelliler haftası için sayın MAKÜ eğitimci ve öğrencileriyle birlikte gerçekleștirdiğimiz etkinlikten kareler.</marquee>
 
 </div>
-        
+        <!-- Termessos Kaydırıcı -->
+    <div class="image-slider" id="slider4">
+        <button class="prev" onclick="moveSlide(-1, 'slider4')">&#60;&#60;</button>
+        <div class="slider-container">
+            <img src="84.jpg" alt="Etkinlik 1">
+            <img src="85.jpg" alt="Etkinlik 2">
+            <img src="86.jpg" alt="Etkinlik 3">
+            <img src="87.jpg" alt="Etkinlik 4">
+             <img src="88.jpg" alt="Etkinlik 1">
+            <img src="89.jpg" alt="Etkinlik 2">
+            <img src="90.jpg" alt="Etkinlik 3">
+             <img src="92.jpg" alt="Etkinlik 1">
+            <img src="93.jpg" alt="Etkinlik 2">
+            <img src="94.jpg" alt="Etkinlik 3">
+            <!-- Add more images as needed -->
+        </div>
+        <button class="next" onclick="moveSlide(1, 'slider4')">&#62;&#62;</button>    
+    </div>
 </body>
     </div>
+<marquee>"Bucak Engelli Derneği olarak, engelli bireylerimizin sağlık kontrolü sürecini desteklemek amacıyla özel Termessos Hastanesini ziyaret ettik. Sağlık hizmetlerine erişimin önemini vurguladığımız bu ziyaretimizde, hastane yetkilileriyle verimli bir iş birliği gerçekleştirdik. Engelli bireylerin yanında olan ve bu süreçte bizlere destek veren Özel Termessos Hastanesine teşekkür ederiz.</marquee>
+
 
    <div id="about" class="tab-content">
     <section class="hero">
